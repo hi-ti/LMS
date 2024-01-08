@@ -32,3 +32,7 @@ const lecSchema = new mongoose.Schema({
         ref: 'Course'
     }
 })
+
+const Lectures = mongoose.model('Lectures', lecSchema);
+
+export default Lectures;

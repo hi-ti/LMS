@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const schema = mongoose.Schema;
-
-const Review = mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     rtitle: {
         type: String,
         required: true
@@ -36,4 +34,8 @@ const Review = mongoose.Schema({
         max: 5
     }
 });
+
+const Reviews = mongoose.model('Reviews', reviewSchema)
+
+export default Reviews;
 
