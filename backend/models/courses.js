@@ -6,7 +6,7 @@ const courseDetails = new mongoose.Schema ({
         type: String,
         required: true
     },
-    cid: {
+    cnumber: {
         type: Number,
         unique : true
         },
@@ -20,7 +20,7 @@ const courseDetails = new mongoose.Schema ({
     },
     teacherId:{
         type:schema.Types.ObjectId ,
-        ref:"Teacher"  //referencing to the user collection in which I'll
+        ref:"teacher"  
     },
     cprogress: {
         type: Number,

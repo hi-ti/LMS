@@ -16,10 +16,17 @@ const studentSchema = new mongoose.Schema({
             {
                 cid: { 
                     type: schema.Types.ObjectId,
-                    ref:"Courses"
+                    ref:"Courses",
+                    required: true
                 }
             }
-        ]
+        ],
+        cstatus: {
+            type:String,
+            default : "Not enrolled",
+            enum: ['Ongoing', 'Completed'],
+            required: true
+        }
     }
 })
 
