@@ -55,3 +55,7 @@ const courseDetails = new mongoose.Schema ({
         maxLength: 250
     }
 })
+
+const Courses = mongoose.model("Courses",courseDetails);
+
+export default Courses;
