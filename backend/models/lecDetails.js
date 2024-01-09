@@ -18,19 +18,19 @@ const lecSchema = new mongoose.Schema({
         },
         minutes: {
             type: Number,
-            required: true,
-            min: 0,
+            default: 0,
+            max: 59
+        },
+        seconds: {
+            type: Number,
+            default: 0,
             max: 59
         }
     },
-    larea: {
-        type: String,
-        enum: ['CS', 'Math', 'Eng'] // Computer Science, Mathematics, English
-    },
-    cid: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Course'
-    }
+    // cid: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'course'
+    // }
 })
 
 const Lectures = mongoose.model('Lectures', lecSchema);
