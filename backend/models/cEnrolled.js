@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const courses = require('../models/courses');
 const student = require('../models/studentDetails')
+const courseStatus = require('../models/courseStatus')
 
 const cEnrolledSchema = new mongoose.Schema({
     cno: {
@@ -13,7 +14,7 @@ const cEnrolledSchema = new mongoose.Schema({
     },
     cstatus: {
         type: String,
-        enum: ['Ongoing', 'Completed'],
+        enum: ['Completed', 'Not completed'],
         required: true ['Have not started the course']
     },
     cedate: {

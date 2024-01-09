@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const teacher = require("../models/userDetails")
 const lectures = require('../models/lecDetails');
-const assignments = require('../models/assignment')
+// const assignments = require('../models/assignment')
 
 
 const courseDetails = new mongoose.Schema ({
@@ -11,32 +11,31 @@ const courseDetails = new mongoose.Schema ({
     },
     cno: {
         type: Number,
-        unique : true
+        unique : true   // ---->
         },
     cbranch: {
         type:String,
         required:true
     },
     cdur:{
-        hours:Number,
+        hours:Number,       // total no. of lec... still need?
         required: true
     },
-    cprog: {
-        type: Number,
-        default:0,
-        max: 100
-    },
+    // cprog: {
+    //     type: Number,
+    //     default:0,
+    //     max: 100
+    // },
     clec: {
         type: Array [lectures]      // lec ki b vid uploading      
     },
-    casgn: {
-        type: Array [assignments],
-        default:[] //assign ki b koi file upload krni pdegi 
-    },
-    cenrno: {
-        type: Number,
-        default: 0
-    },
+    // casgn: {
+    //     type: Array [assignments] //assign ki b koi file upload krni pdegi 
+    // },
+    // cenrno: {
+    //     type: Number,
+    //     default: 0  
+    // },
     clevel: {
         type: String,
         enum: ['beginner', 'intermediate', 'advanced']
