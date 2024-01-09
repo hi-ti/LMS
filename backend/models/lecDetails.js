@@ -33,6 +33,6 @@ const lecSchema = new mongoose.Schema({
     // }
 })
 
-const Lectures = mongoose.model('Lectures', lecSchema);
+const lectures = mongoose.model('lectures', lecSchema);
 
-export default Lectures;
+export default lectures;

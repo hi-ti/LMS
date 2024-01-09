@@ -1,35 +1,24 @@
 const mongoose = require('mongoose');
-const user = require("../models/userReg.js")
+const user = require("../models/userReg.js");
+const cenr = require('./cEnrolled.js');
 
 const studentSchema = new mongoose.Schema({
     suser: {
-        type: schema.Types.ObjectId,
-        ref: 'User'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     },
-    sid: {
+    srollno: {
         type: String,
         unique: true,
         required: [true, "can't be blank"]
     },
-    scourses: {
-        type: [
-            {
-                cid: { 
-                    type: schema.Types.ObjectId,
-                    ref:"Courses",
-                    required: true
-                }
-            }
-        ],
-        cstatus: {
-            type:String,
-            default : "Not enrolled",
-            enum: ['Ongoing', 'Completed'],
-            required: true
-        }
+    cenrolled: {
+        type: Array [cenr],
+        ref: 'cenrolled',
+        required: true ['Not enrolled for any course']
     }
 })
 
-const Student = mongoose.model('Student', studentSchema);
+const student = mongoose.model('student', studentSchema);
 
-module.exports = Student;
+module.exports = student;

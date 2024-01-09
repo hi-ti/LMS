@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
-const Teacher = require("../models/userDetails")
+// const teacher = require("../models/userDetails")
+const lectures = require('../models/lecDetails');
+const assignments = require('../models/assignment')
+
 
 const courseDetails = new mongoose.Schema ({
     cname: {
         type: String,
         required: true
     },
-    cnumber: {
+    cno: {
         type: Number,
         unique : true
         },
@@ -14,34 +17,23 @@ const courseDetails = new mongoose.Schema ({
         type:String,
         required:true
     },
-    cduration:{
+    cdur:{
         hours:Number,
         required: true
     },
-    teacherId:{
-        type:schema.Types.ObjectId ,
-        ref:"teacher"  
-    },
-    cprogress: {
+    cprog: {
         type: Number,
         default:0,
         max: 100
     },
-    clectures: {
-        type:[{
-            lectureName: String,
-            videoLink: String
-            }]            
+    clec: {
+        type: Array [lectures]      // lec ki b vid uploading      
     },
-    cassignments: {
-        type:[{
-            assignmentName: String,
-            submissionDate: Date,
-            dueDate: Date
-            }],
-        default:[]
+    casgn: {
+        type: Array [assignments],
+        default:[] //assign ki b koi file upload krni pdegi 
     },
-    cenrolled: {
+    cenrno: {
         type: Number,
         default: 0
     },
@@ -49,13 +41,13 @@ const courseDetails = new mongoose.Schema ({
         type: String,
         enum: ['beginner', 'intermediate', 'advanced']
     },
-    cdescription: {
+    cdes: {
         type: String,
         minLength: 10,
         maxLength: 250
     }
 })
 
-const Courses = mongoose.model("Courses",courseDetails);
+const courses = mongoose.model("courses",courseDetails);
 
-export default Courses;
+export default courses;

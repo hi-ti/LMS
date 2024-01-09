@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const user = require("../models/userReg.js")
+const cAddedSchema = require("../models/cAdded.js")
 
 const teacherSchema = new mongoose.Schema({
+    tuser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     trollno : {
         type: Number,
         unique: true,
@@ -28,18 +33,5 @@ const teacherSchema = new mongoose.Schema({
 })
 
 const teachers = mongoose.model('teachers',teacherSchema)
-
-const cAddedSchema = new mongoose.Schema ({
-    cno: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'courses'
-    },
-    trollno : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'teachers'
-    }
-})
-
-const courseAdded = mongoose.model('courseAdded',cAddedSchema);
 
 export default teachers;
