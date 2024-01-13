@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const user = require("../models/userReg.js");
-const cenr = require("./cEnrolled.js");
+// const user = require("../models/userReg.js");
+// const cenr = require("./cEnrolled.js");
 
 const studentSchema = new mongoose.Schema({
 	suser: {
@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
 		required: [true, "can't be blank"],
 	},
 	cenrolled: {
-		type: Array[cenr],
+		type: Array,
 		ref: "cenrolled",
 		required: true["Not enrolled for any course"],
 	},
