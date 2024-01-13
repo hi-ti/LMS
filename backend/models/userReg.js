@@ -20,10 +20,9 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         required: [true, 'Please provide an email']
     },
-    age: {
-        type: Number,
-        min: 10,
-        max: 99,
+    dob: {
+        type: Date,
+        default:Date.now(),
         required: true
     },
     password: {
