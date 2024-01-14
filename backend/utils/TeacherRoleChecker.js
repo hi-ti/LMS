@@ -9,7 +9,10 @@ const TeacherRoleChecker = async (req, res, next) => {
 			{ _id: new mongoose.Types.ObjectId(id) },
 			{ role: 1 }
 		);
-		if (result.role !== "teacher" || result.role !== "admin")
+		const roleArray = ["teacher", "admin"];
+		// console.log(result.role);
+
+		if (!roleArray.includes(result.role))
 			return res.status(403).json("Unauthorised");
 
 		next();
