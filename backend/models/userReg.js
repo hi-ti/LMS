@@ -34,6 +34,12 @@ const userSchema = new mongoose.Schema({
 		enum: ["student", "teacher", "admin"],
 		default: "student",
 	},
+
+	// is Verified
+	isVr: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const User = mongoose.model("users", userSchema);
