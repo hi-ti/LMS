@@ -1,8 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const router = express.Router();
+const TeacherRoleChecker = require("../../utils/TeacherRoleChecker");
 
-const { teacherData, teacherAdd, teacherUpdate } = require('../../controllers/teacher/teacherController');
+const {
+	teacherData,
+	teacherAdd,
+	teacherUpdate,
+} = require("../../controllers/teacher/teacherController");
+
+app.use(TeacherRoleChecker);
 
 router.post("/details", teacherData);
 
