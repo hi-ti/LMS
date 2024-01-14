@@ -11,20 +11,22 @@ const courseDetails = new mongoose.Schema({
 	},
 	cbranch: {
 		type: String,
-		required: true,
+		default: 'CSE'
 	},
 	cdur: {
 		hours: {
 			type: Number,
-			required: true,
+			default: 0
 		},
 	},
 	clec: {
-		type: Array,
+		type: Number,
+		default: 1
 	},
 	clevel: {
 		type: String,
 		enum: ["beginner", "intermediate", "advanced"],
+		default: "beginner",
 	},
 	cdes: {
 		type: String,

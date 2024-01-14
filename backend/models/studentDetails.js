@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const studentSchema = new mongoose.Schema({
 	suser: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "user",
+		ref: "users",
 	},
 	srollno: {
 		type: String,
 		unique: true,
-		required: [true, "can't be blank"],
+		default: 1,
 	},
 	cenrolled: {
 		type: Array,

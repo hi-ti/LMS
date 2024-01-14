@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 const user = require("../models/userReg.js");
-const cAddedSchema = require("../models/cAdded.js");
+// const cAddedSchema = require("../models/cAdded.js");
 
 const teacherSchema = new mongoose.Schema({
 	tuser: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "user",
+		ref: "users",
 	},
 	trollno: {
 		type: Number,
 		unique: true,
-		required: true,
+		default: 1,
 	},
 	tbio: {
 		type: String,
@@ -26,9 +26,9 @@ const teacherSchema = new mongoose.Schema({
 	// tprofilepic: {
 	//     type:
 	// }
-	tcourse: {
-		type: Array[cAddedSchema],
-	},
+	// tcourse: {
+	// 	type: Array[cAddedSchema],
+	// },
 });
 
 const teachers = mongoose.model("teachers", teacherSchema);
