@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-// const user = require("../models/userReg.js");
-// const cenr = require("./cEnrolled.js");
 
 const studentSchema = new mongoose.Schema({
 	suser: {
@@ -11,12 +9,7 @@ const studentSchema = new mongoose.Schema({
 		type: String,
 		unique: true,
 		default: 1,
-	},
-	cenrolled: {
-		type: Array,
-		ref: "cenrolled",
-		required: true["Not enrolled for any course"],
-	},
+	}
 });
 
 const student = mongoose.model("student", studentSchema);

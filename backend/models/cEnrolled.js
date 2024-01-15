@@ -8,7 +8,7 @@ const cEnrolledSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "courses",
 	},
-	srollno: {
+	suser: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "student",
 	},
