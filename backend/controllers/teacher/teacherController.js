@@ -78,4 +78,4 @@ const teacherUpdate = async (req, res) => {
     }
 };
 
-module.exports = { teacherData, teacherAdd, teacherUpdate };
+module.exports = { teacherData, teacherAdd, teacherUpdate,  };
