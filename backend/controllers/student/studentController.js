@@ -50,7 +50,7 @@ const studentAdd = async (req, res) => {
 	}
 };
 
-const studentUpdate = async (req, res) => {
+const studentCourseUpdate = async (req, res) => {
 	try {
 		const { id } = req.body;
 		const { data } = req.body;
@@ -154,7 +154,7 @@ const addCourseToStudentRequest = async (req, res) => {
 module.exports = {
 	studentData,
 	studentAdd,
-	studentUpdate,
+	studentCourseUpdate,
 	studentCourses,
 	addCourseToStudentRequest,
 };

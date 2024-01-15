@@ -6,10 +6,9 @@ const StudentRoleChecker = require("../../utils/StudentRoleChecker");
 const {
 	studentData,
 	studentAdd,
-	studentUpdate,
+	studentCourseUpdate,
 	studentCourses,
 	addCourseToStudentRequest,
-	studentDashboard
 } = require("../../controllers/student/studentController");
 
 router.use(JWTDecoder);
@@ -19,7 +18,9 @@ router.post("/details", studentData);
 
 router.post("/add", studentAdd);
 
-router.post("/courseAdd", studentUpdate);
+router.post("/courseAdd", studentCourseUpdate);
+
+// router.post("/editProfile", editStudentProfile );
 
 router.post("/myCourses", studentCourses);
 
