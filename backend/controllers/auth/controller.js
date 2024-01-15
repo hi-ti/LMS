@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/userReg");
 const SendEmail = require("../../utils/SendEmail");
 const sendEmail = require("../../utils/SendEmail");
+const Student = require("../../models/studentDetails");
 
 const Login = async (req, res) => {
 	try {
@@ -63,6 +64,12 @@ const Register = async (req, res) => {
 		`;
 
 		await SendEmail({ email: user.email, subject: subject, message: message });
+
+		const newStudent = new Student({
+			suser: new mongoose.Types.ObjectId(user._id),
+		});
+
+		await newStudent.save();
 		// send response
 		res.status(200).json({ user: user });
 	} catch (err) {

@@ -4,11 +4,16 @@ import App from "./App.jsx";
 import "./index.css";
 import Nav from "./Components/global/nav/nav.jsx";
 import { Toaster } from "react-hot-toast";
+import { NextUIProvider } from "@nextui-org/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<Toaster />
-		<Nav />
-		<App />
+		<NextUIProvider>
+			<Toaster />
+			<Nav />
+			<main className="">
+				<App />
+			</main>
+		</NextUIProvider>
 	</React.StrictMode>
 );

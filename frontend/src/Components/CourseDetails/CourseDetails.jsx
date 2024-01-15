@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import publicApi from "../../bearer";
+import toast from "react-hot-toast";
 
 const CourseDetails = () => {
 	const { id } = useParams();
@@ -17,6 +18,26 @@ const CourseDetails = () => {
 		fetchData();
 	}, [id]);
 
+	const sendRegisterRequest = async () => {
+		try {
+			const response = await publicApi.post("api/student/addCourseRequest", {
+				data: { cid: id },
+				token: sessionStorage.getItem("token"),
+			});
+			// console.log(response.data);
+
+			if (response.status === 200) {
+				toast.success("Successfully requested");
+			} else {
+				console.log(response.data);
+				toast.error(response.data);
+			}
+		} catch (e) {
+			console.log(e);
+			toast.error(e.response.data);
+		}
+	};
+
 	return (
 		<div className="text-left text-2xl font-semibold mt-8">
 			<div className="CourseName">Course Name: {data.cname}</div>
@@ -27,6 +48,12 @@ const CourseDetails = () => {
 				Created On: {new Date(data.CrD).toLocaleDateString()}
 			</div>
 			<div className="CourseDesc">Course Description: {data.cdes}</div>
+			<button
+				className="btn bg-black text-white px-4 py-2 rounded-lg"
+				onClick={sendRegisterRequest}
+			>
+				Join Now
+			</button>
 		</div>
 	);
 };

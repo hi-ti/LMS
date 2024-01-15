@@ -7,20 +7,17 @@ const teacherSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "users",
 	},
-	trollno: {
-		type: Number,
-		unique: true,
-		default: 1,
-	},
 	tbio: {
 		type: String,
 		minLength: 10,
 		maxLength: 250,
+		default: "hi, i am a teacher",
 	},
 	texperience: {
 		highestqualification: {
 			type: String,
-			enum: ["B.Ed", "B.Tech", "M.Tech", "M.Ed", "PhD"], //have to add more
+			enum: ["B.Ed", "B.Tech", "M.Tech", "M.Ed", "PhD", ""], //have to add more
+			default: "",
 		},
 	},
 	// tprofilepic: {

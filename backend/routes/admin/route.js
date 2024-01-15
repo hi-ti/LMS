@@ -5,7 +5,9 @@ const {
 	getAllStudents,
 	getAllTeachers,
 	getAllCourses,
+	getAllUsers,
 	ApprovalStatusUpdate,
+	ApprovalsRequestsGet,
 } = require("../../controllers/admin/adminController");
 const JWTDecoder = require("../../utils/JWTDecoder");
 const AdminRoleChecker = require("../../utils/AdminRoleChecker");
@@ -21,6 +23,10 @@ router.post("/students", getAllStudents);
 
 router.post("/courses", getAllCourses);
 
+router.post("/getAllUsers", getAllUsers);
+
 router.post("/approvalStatusUpdate", ApprovalStatusUpdate);
+
+router.post("/approvalsRequests", ApprovalsRequestsGet);
 
 module.exports = router;
