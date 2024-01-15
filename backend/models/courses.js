@@ -5,10 +5,6 @@ const courseDetails = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	cno: {
-		type: Number,
-		unique: true,
-	},
 	cbranch: {
 		type: String,
 		default: 'CSE'
@@ -33,6 +29,10 @@ const courseDetails = new mongoose.Schema({
 		minlength: 10,
 		maxlength: 250,
 	},
+	CrD: {
+		type: Date,
+		default: Date.now()
+	}
 });
 
 const courses = mongoose.model("courses", courseDetails);

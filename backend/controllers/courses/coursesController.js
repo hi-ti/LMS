@@ -24,11 +24,10 @@ const courseData = async (req, res) => {
 
 const courseAdd = async (req, res) => {
     try {
-        const { cname, cno, cbranch, cdur, clec, clevel, cdes } = req.body;
+        const { cname, cbranch, cdur, clec, clevel, cdes } = req.body;
 
         const addACourse = new Course({
             cname,
-            cno,
             cbranch,
             cdur,
             clec,
