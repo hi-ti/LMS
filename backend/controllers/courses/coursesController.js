@@ -1,5 +1,5 @@
-const Course = require("../../models/courses");
 const mongoose = require("mongoose");
+const Course = require("../../models/courses")
 
 const courseData = async (req, res) => {
     try {
@@ -24,6 +24,7 @@ const courseData = async (req, res) => {
 
 const courseAdd = async (req, res) => {
     try {
+        // console.log(req)
         const { cname, cbranch, cdur, clec, clevel, cdes } = req.body;
 
         const addACourse = new Course({
@@ -80,7 +81,7 @@ const courseUpdate = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
     try {
-        const courses = await Course.find().populate("cno");
+        const courses = await Course.find();
         res.status(200).json(courses);
     } catch (error) {
         console.error(error);
