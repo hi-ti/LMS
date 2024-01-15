@@ -12,11 +12,6 @@ const studentSchema = new mongoose.Schema({
 		unique: true,
 		default: 1,
 	},
-	cenrolled: {
-		type: Array,
-		ref: "cenrs",
-		required: true["Not enrolled for any course"],
-	},
 });
 
 const student = mongoose.model("student", studentSchema);

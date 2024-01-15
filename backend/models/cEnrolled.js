@@ -8,10 +8,6 @@ const cEnrolledSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "courses",
 	},
-	srollno: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "student",
-	},
 	cstatus: {
 		type: String,
 		enum: ["Completed", "Not completed"],
