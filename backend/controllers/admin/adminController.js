@@ -19,4 +19,34 @@ const RoleModify = async (req, res) => {
 	}
 };
 
-module.exports = { RoleModify };
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await Student.find().populate("suser");
+        res.status(200).json(students);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const getAllTeachers = async (req, res) => {
+    try {
+        const teachers = await Teacher.find().populate("tuser");
+        res.status(200).json(teachers);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const getAllCourses = async (req, res) => {
+    try {
+        const courses = await Course.find().populate("cno");
+        res.status(200).json(courses);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+module.exports = { RoleModify, getAllStudents, getAllTeachers, getAllCourses };
