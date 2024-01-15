@@ -22,6 +22,6 @@ router.post("/courseAdd", studentUpdate);
 
 router.post("/myCourses", studentCourses);
 
-router.post("/addCourse", addCourseToStudentRequest);
+router.post("/addCourseRequest", addCourseToStudentRequest);
 
 module.exports = router;

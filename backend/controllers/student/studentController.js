@@ -1,7 +1,8 @@
 const Student = require("../../models/studentDetails");
 const User = require("../../models/userReg");
 const mongoose = require("mongoose");
-const cEnrolled = require("../../models/cEnrolled");
+const Courses = require("../../models/courses");
+const cReq = require("../../models/cReq");
 
 const studentData = async (req, res) => {
 	try {
@@ -106,27 +107,52 @@ const studentCourses = async (req, res) => {
 
 const addCourseToStudentRequest = async (req, res) => {
 	try {
-		const { id } = req.body;
+		const { id } = req.user;
 		const { data } = req.body;
 
-		console.log(id, data);
+		// console.log(id, data);
+		if (!id || !data) {
+			res.status(400).json("Invalid Request");
+			return;
+		}
 
-		const updatedStudent = await Student.updateOne(
-			{ suser: new mongoose.Types.ObjectId(id) },
-			{
-				scourses: {
-					$push: {
-						cid: new mongoose.Types.ObjectId(data.cid),
-					},
-				},
-			}
+		const CourseExisits = await Courses.findOne(
+			{ _id: new mongoose.Types.ObjectId(data.cid) },
+			{ _id: 1 }
 		);
 
-		console.log(updatedStudent);
-
-		if (updatedStudent.modifiedCount === 0) {
-			res.status(400).json("Unable to add course");
+		if (!CourseExisits) {
+			res.status(404).json("Course Not Found");
+			return;
 		}
+
+		const RequestExists = await cReq.findOne({
+			cno: new mongoose.Types.ObjectId(data.cid),
+			suser: new mongoose.Types.ObjectId(id),
+		});
+		// console.log(RequestExists);
+
+		if (RequestExists) {
+			if (RequestExists.status === true) {
+				res.status(400).json("Request Already Approved");
+				return;
+			}
+			res.status(400).json("Request Already Exists");
+			return;
+		}
+
+		const createRequest = new cReq({
+			cno: data.cid,
+			suser: id,
+		});
+
+		await createRequest.save();
+
+		// const AddRequest = await console.log(updatedStudent);
+
+		// if (updatedStudent.modifiedCount === 0) {
+		// 	res.status(400).json("Unable to add course");
+		// }
 
 		res.status(200).json({});
 	} catch (e) {

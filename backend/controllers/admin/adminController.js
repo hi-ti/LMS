@@ -19,4 +19,6 @@ const RoleModify = async (req, res) => {
 	}
 };
 
-module.exports = { RoleModify };
+const ApprovalStatusUpdate = async (req, res) => {};
+
+module.exports = { RoleModify, ApprovalStatusUpdate };
