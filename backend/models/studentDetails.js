@@ -9,7 +9,7 @@ const studentSchema = new mongoose.Schema({
 		type: String,
 		unique: true,
 		default: 1,
-	}
+	},
 });
 
 const student = mongoose.model("student", studentSchema);

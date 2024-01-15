@@ -7,6 +7,8 @@ const {
 	studentData,
 	studentAdd,
 	studentUpdate,
+	studentCourses,
+	addCourseToStudentRequest,
 } = require("../../controllers/student/studentController");
 
 router.use(JWTDecoder);
@@ -17,5 +19,9 @@ router.post("/details", studentData);
 router.post("/add", studentAdd);
 
 router.post("/courseAdd", studentUpdate);
+
+router.post("/myCourses", studentCourses);
+
+router.post("/addCourse", addCourseToStudentRequest);
 
 module.exports = router;
