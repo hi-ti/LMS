@@ -1,8 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const router = express.Router();
 
-const { courseData, courseAdd, courseUpdate } = require("../../controllers/courses/coursesController");
+const {
+	courseData,
+	courseAdd,
+	courseUpdate,
+} = require("../../controllers/courses/coursesController");
 
 router.post("/details", courseData);
 
