@@ -5,7 +5,7 @@ const {
 	getAllStudents,
 	getAllTeachers,
 	getAllCourses,
-	ApprovalStatusUpdate
+	ApprovalStatusUpdate,
 } = require("../../controllers/admin/adminController");
 const JWTDecoder = require("../../utils/JWTDecoder");
 const AdminRoleChecker = require("../../utils/AdminRoleChecker");

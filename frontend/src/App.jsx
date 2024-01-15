@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Courses from "./Components/Courses/Courses.jsx";
+import "./App.css";
+import Login from "./Components/Login/Login.jsx";
+import Signup from "./Components/Signup/Signup.jsx";
+import CourseDetails from "./Components/CourseDetails/CourseDetails.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [count, setCount] = useState(0);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const token = sessionStorage.getItem("token");
+	return (
+		<>
+			<BrowserRouter>
+				<Routes>
+					<Route exact path="/" element={<Courses />} />
+
+					{token ? (
+						<Route exact path="/course">
+							<Route exact path=":id" element={<CourseDetails />} />
+						</Route>
+					) : (
+						<>
+							<Route exact path="/login" element={<Login />} />
+							<Route exact path="/signup" element={<Signup />} />
+						</>
+					)}
+					{/* <Route path="/about" element={<About />} /> */}
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
 }
 
-export default App
+export default App;
