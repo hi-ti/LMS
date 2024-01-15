@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/userReg");
 const SendEmail = require("../../utils/SendEmail");
+const sendEmail = require("../../utils/SendEmail");
 
 const Login = async (req, res) => {
 	try {
@@ -99,4 +100,94 @@ const UserActivate = async (req, res) => {
 	}
 };
 
-module.exports = { Login, Register, UserActivate };
+const UserChangePassword = async (req, res) => {
+	try {
+		// const x = 0;
+		// console.log("requested");
+
+		// destructuring id of user
+		const { id } = req.user;
+
+		// user finding
+		const user = await User.findOne(
+			{ _id: new mongoose.Types.ObjectId(id) },
+			{ _id: 1, email: 1, username: 1 }
+		);
+		// console.log(user);
+
+		// creating a token for password change
+		const JWToken = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+			expiresIn: "1h",
+		});
+		// console.log("Token ready bitch");
+
+		// if user found
+		if (user) {
+			// sending email
+			sendEmail({
+				email: user.email,
+				subject: "Change Password",
+				message: `<h1>Hi ${user.username}</h1>
+				<p>Change Password</p>
+				<p>Please click on the link below to change password for your account</p>
+				<a href=${process.env.URL}/api/auth/changePassword/${JWToken}>Change Password</a>
+				`,
+			});
+			// res.redirect(`${process.env.URL}/changePassword/${JWToken}`);
+			res.status(200).json("Messaage sent bitch");
+		} else {
+			// throw error if user not found
+			throw new Error("No such user found.");
+		}
+
+		// res.status(404).message("User Not Found");
+	} catch (e) {
+		res.status(500).json({ message: e.message });
+	}
+};
+
+const PasswordChanger = async (req, res) => {
+	try {
+		let token = req.params.token;
+
+		const { newPassword, confirmedPassword } = req.body;
+		if (newPassword !== confirmedPassword) {
+			return res.status(400).json("Passwords do not match");
+		}
+
+		const { id } = jwt.verify(token, process.env.JWT_SECRET);
+		// check token expiration
+		if (!token) {
+			return res.status(400).json("Invalid or Expired Token");
+		}
+
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+		const UpdatedUser = await User.updateOne(
+			{ _id: new mongoose.Types.ObjectId(id) },
+			{
+				$set: {
+					password: hashedPassword,
+				},
+			}
+		);
+
+		if (UpdatedUser.nModified === 0) {
+			return res.status(400).json("Failed to update the user");
+		}
+
+		return res.status(200).json("User Updated");
+	} catch (e) {
+		console.log(e);
+		return res.status(403).json("Forbidden Access");
+	}
+};
+
+module.exports = {
+	Login,
+	Register,
+	UserActivate,
+	UserChangePassword,
+	PasswordChanger,
+};
