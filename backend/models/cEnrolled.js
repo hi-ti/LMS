@@ -23,6 +23,6 @@ const cEnrolledSchema = new mongoose.Schema({
 	},
 });
 
-const cenr = mongoose.model("cenr", cEnrolledSchema);
+const cenr = mongoose.model("cenrs", cEnrolledSchema);
 
 module.exports = cenr;

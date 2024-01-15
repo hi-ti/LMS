@@ -14,7 +14,7 @@ const studentSchema = new mongoose.Schema({
 	},
 	cenrolled: {
 		type: Array,
-		ref: "cenrolled",
+		ref: "cenrs",
 		required: true["Not enrolled for any course"],
 	},
 });
