@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-// const courses = require("../models/courses");
-// const student = require("../models/studentDetails");
-// const courseStatus = require("../models/courseStatus");
 
 const cEnrolledSchema = new mongoose.Schema({
 	cno: {

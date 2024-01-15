@@ -1,15 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {
-	getAllTeachers,
-} = require("../../controllers/teacher/teacherController");
-const {
+	RoleModify,
 	getAllStudents,
-} = require("../../controllers/student/studentController");
-const {
+	getAllTeachers,
 	getAllCourses,
-} = require("../../controllers/courses/coursesController");
-
+} = require("../../controllers/admin/adminController");
 const JWTDecoder = require("../../utils/JWTDecoder");
 const AdminRoleChecker = require("../../utils/AdminRoleChecker");
 

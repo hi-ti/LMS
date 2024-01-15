@@ -78,14 +78,4 @@ const teacherUpdate = async (req, res) => {
     }
 };
 
-const getAllTeachers = async (req, res) => {
-    try {
-        const teachers = await Teacher.find().populate("tuser");
-        res.status(200).json(teachers);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-};
-
-module.exports = { teacherData, teacherAdd, teacherUpdate, getAllTeachers };
+module.exports = { teacherData, teacherAdd, teacherUpdate };
