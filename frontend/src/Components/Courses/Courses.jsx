@@ -35,8 +35,8 @@ const Courses = () => {
 				<p className="text-center text-5xl font-bold">All Courses</p>
 
 				<div className="grid grid-cols-3 gap-4 text-left">
-					{data.map((course) => (
-						<Link to={`/course/${course._id}`}>
+					{data.map((course, index) => (
+						<Link to={`/course/${course._id}`} key={index}>
 							<div className="bg-gray-200 rounded-lg shadow-lg p-4">
 								<p className="text-2xl font-bold">
 									Course Name: {course.cname}

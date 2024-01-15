@@ -21,7 +21,7 @@ const Login = () => {
 		toast.success("Logged in successfully");
 		console.log(response.data);
 		sessionStorage.setItem("token", response.data.token);
-		console.log(sessionStorage.getItem("token"));
+		// console.log(sessionStorage.getItem("token"));
 		navigate("/");
 	};
 	return (

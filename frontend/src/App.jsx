@@ -4,6 +4,7 @@ import Courses from "./Components/Courses/Courses.jsx";
 import "./App.css";
 import Login from "./Components/Login/Login.jsx";
 import Signup from "./Components/Signup/Signup.jsx";
+import CourseDetails from "./Components/CourseDetails/CourseDetails.jsx";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -14,12 +15,11 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route exact path="/" element={<Courses />} />
-					<Route exact path="/course">
-						<Route exact path=":id" element={<>123213</>} />
-					</Route>
 
 					{token ? (
-						<></>
+						<Route exact path="/course">
+							<Route exact path=":id" element={<CourseDetails />} />
+						</Route>
 					) : (
 						<>
 							<Route exact path="/login" element={<Login />} />
