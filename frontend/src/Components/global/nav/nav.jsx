@@ -19,14 +19,7 @@ const Nav = () => {
 		} else {
 			setSignedin(false);
 		}
-	}, [signedIn]);
-	// console.log(userExists);
-	// if (userExists) {
-	// 	() => setSignedin(false);
-	// } else {
-	// 	() => setSignedin(false);
-	// }
-	// console.log(userExists);
+	}, [userExists]);
 	return (
 		<div className="m-0 p-0 flex w-full">
 			<div className="flex w-1/6">
