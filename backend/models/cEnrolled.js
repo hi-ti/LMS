@@ -8,6 +8,10 @@ const cEnrolledSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "courses",
 	},
+	suser: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "student",
+	},
 	cstatus: {
 		type: String,
 		enum: ["Completed", "Not completed"],
