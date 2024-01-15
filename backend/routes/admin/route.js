@@ -5,14 +5,10 @@ const {
 	getAllStudents,
 	getAllTeachers,
 	getAllCourses,
+	ApprovalStatusUpdate,
 } = require("../../controllers/admin/adminController");
 const JWTDecoder = require("../../utils/JWTDecoder");
 const AdminRoleChecker = require("../../utils/AdminRoleChecker");
-
-const {
-	RoleModify,
-	ApprovalStatusUpdate,
-} = require("../../controllers/admin/adminController");
 
 router.use(JWTDecoder);
 router.use(AdminRoleChecker);

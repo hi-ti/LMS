@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../../models/userReg");
+const cReq = require("../../models/cReq");
 
 const RoleModify = async (req, res) => {
 	try {
@@ -19,7 +20,32 @@ const RoleModify = async (req, res) => {
 	}
 };
 
-const ApprovalStatusUpdate = async (req, res) => {};
+const ApprovalStatusUpdate = async (req, res) => {
+	try {
+		const { userId, course, status } = req.body;
+		if (!userId || !course) {
+			return res.status(400).json({ message: "Invalid request" });
+		}
+
+		const updater = await cReq.updateOne(
+			{
+				suser: new mongoose.Types.ObjectId(userId),
+				cno: new mongoose.Types.ObjectId(course),
+			},
+			{ $set: { status: status } }
+		);
+
+		if (updater.modifiedCount === 0) {
+			return res.status(400).json({ message: "Unable to update" });
+		}
+
+		res.status(200).json({ message: "Updated successfully" });
+		return;
+	} catch (e) {
+		console.log(e);
+		return res.status(500).json({ message: "Internal Server Error" });
+	}
+};
 
 const getAllStudents = async (req, res) => {
 	try {
