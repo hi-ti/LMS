@@ -1,17 +1,52 @@
 const mongoose = require("mongoose");
 const User = require("../../models/userReg");
+const Student = require("../../models/studentDetails");
+const Teacher = require("../../models/teacherDetails");
+const Course = require("../../models/courses");
 const cReq = require("../../models/cReq");
 
 const RoleModify = async (req, res) => {
 	try {
 		console.log(req.user);
 		const { role } = req.body;
-		const { id } = req.user;
+		const { id: userId } = req.body;
+
+		if (!role || !userId) {
+			return res.status(400).json({ message: "Invalid request" });
+		}
+
+		const UserCurrDetails = await User.findOne(
+			{ _id: new mongoose.Types.ObjectId(userId) },
+			{ role: 1 }
+		);
+		// console.log(UserCurrDetails);
+
+		if (role === UserCurrDetails.role) {
+			return res.status(400).json({ message: "Same role" });
+		}
 
 		await User.updateOne(
-			{ _id: new mongoose.Types.ObjectId(id) },
+			{ _id: new mongoose.Types.ObjectId(userId) },
 			{ $set: { role: role } }
 		);
+
+		if (UserCurrDetails.role === "student") {
+			await Student.deleteOne({ suser: new mongoose.Types.ObjectId(userId) });
+			const newTeacher = new Teacher({
+				tuser: new mongoose.Types.ObjectId(userId),
+			});
+
+			await newTeacher.save();
+		}
+
+		if (UserCurrDetails.role === "teacher") {
+			await Teacher.deleteOne({ tuser: new mongoose.Types.ObjectId(userId) });
+			const newStudent = new Student({
+				suser: new mongoose.Types.ObjectId(userId),
+			});
+
+			await newStudent.save();
+		}
 
 		return res.status(200).json({ message: "Role modified successfully" });
 	} catch (e) {
@@ -60,6 +95,7 @@ const getAllStudents = async (req, res) => {
 const getAllTeachers = async (req, res) => {
 	try {
 		const teachers = await Teacher.find().populate("tuser");
+		// console.log(teachers);
 		res.status(200).json(teachers);
 	} catch (error) {
 		console.error(error);
@@ -69,8 +105,28 @@ const getAllTeachers = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
 	try {
-		const courses = await Course.find().populate("cno");
+		const courses = await Course.find();
 		res.status(200).json(courses);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: "Internal Server Error" });
+	}
+};
+
+const getAllUsers = async (req, res) => {
+	try {
+		const users = await User.find();
+		res.status(200).json(users);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ message: "Internal Server Error" });
+	}
+};
+
+const ApprovalsRequestsGet = async (req, res) => {
+	try {
+		const approvals = await cReq.find().populate("suser").populate("cno");
+		res.status(200).json(approvals);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: "Internal Server Error" });
@@ -82,5 +138,7 @@ module.exports = {
 	getAllStudents,
 	getAllTeachers,
 	getAllCourses,
+	getAllUsers,
 	ApprovalStatusUpdate,
+	ApprovalsRequestsGet,
 };
