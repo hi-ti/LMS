@@ -7,17 +7,17 @@ const courseDetails = new mongoose.Schema({
 	},
 	cbranch: {
 		type: String,
-		default: 'CSE'
+		default: "CSE",
 	},
 	cdur: {
 		hours: {
 			type: Number,
-			default: 0
+			default: 0,
 		},
 	},
 	clec: {
 		type: Number,
-		default: 1
+		default: 1,
 	},
 	clevel: {
 		type: String,
@@ -31,8 +31,8 @@ const courseDetails = new mongoose.Schema({
 	},
 	CrD: {
 		type: Date,
-		default: Date.now()
-	}
+		default: Date.now(),
+	},
 });
 
 const courses = mongoose.models.courses || mongoose.model("courses", courseDetails);

@@ -21,7 +21,7 @@ const Nav = () => {
 		}
 	}, [userExists]);
 	return (
-		<div className="m-0 p-0 flex w-full">
+		<div className="m-0 p-0 flex w-full z-10">
 			<div className="flex w-1/6">
 				<div className=" w-full font-bold text-2xl text-left">LearnToday</div>
 			</div>

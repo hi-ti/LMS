@@ -19,7 +19,7 @@ const Login = async (req, res) => {
 			return res.status(400).json({ message: "Incorrect password" });
 		// Create token
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-			expiresIn: "1h",
+			expiresIn: "24h",
 		});
 		// Send response
 		res.status(200).json({ token: token, user: user });

@@ -10,6 +10,9 @@ import AdminDashboard from "./Components/AdminDashboard/AdminDashboard.jsx";
 import AdminCourseUpdate from "./Components/AdminDashboard/AdminCourseUpdate.jsx";
 import RoleModifier from "./Components/AdminDashboard/RoleModifier.jsx";
 import CourseCreatorForm from "./Components/AdminDashboard/CourseCreatorForm.jsx";
+import CourseEditForm from "./Components/AdminDashboard/CourseEditForm.jsx";
+import TeacherDashboard from "./Components/TeacherDashboard/TeacherDashboard.jsx";
+import AssignCourses from "./Components/AdminDashboard/AssignCourses.jsx";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -50,6 +53,21 @@ function App() {
 								exact
 								path="/adminDashboard/createCourse"
 								element={<CourseCreatorForm />}
+							/>
+							<Route
+								exact
+								path="/adminDashboard/courseEdit/:id"
+								element={<CourseEditForm />}
+							/>
+							<Route
+								exact
+								path="/teacherDashboard"
+								element={<TeacherDashboard />}
+							/>
+							<Route
+								exact
+								path="/adminDashboard/assignCourses"
+								element={<AssignCourses />}
 							/>
 						</>
 					) : (

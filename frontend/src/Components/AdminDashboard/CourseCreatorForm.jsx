@@ -81,8 +81,8 @@ const CourseCreatorForm = () => {
 						type="text"
 						className="border border-black px-2 py-1 rounded-md"
 						id="courseDuration"
-						placeholder="Enter course duration"
-						onChange={(e) => setCourseDuration(e.target.value)}
+						placeholder="Enter course duration in hrs"
+						onChange={(e) => setCourseDuration({ hours: +e.target.value })}
 					/>
 				</div>
 				<div className="flex gap-x-4 items-center">
@@ -94,7 +94,7 @@ const CourseCreatorForm = () => {
 						className="border border-black px-2 py-1 rounded-md"
 						id="courseLectures"
 						placeholder="Enter course lectures"
-						onChange={(e) => setCourseLectures(e.target.value)}
+						onChange={(e) => setCourseLectures(+e.target.value)}
 					/>
 				</div>
 				<button
