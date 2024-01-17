@@ -3,12 +3,15 @@ const mongoose = require("mongoose");
 
 const TeacherRoleChecker = async (req, res, next) => {
 	try {
+		// console.log("reached");
+		// res.status(500).json("LL");
 		const { id } = req.user;
 		// if (role !== "admin") return res.status(403).json("unauthorized");
 		const result = await User.findOne(
 			{ _id: new mongoose.Types.ObjectId(id) },
 			{ role: 1 }
 		);
+		// console.log(result);
 		const roleArray = ["teacher", "admin"];
 		// console.log(result.role);
 
