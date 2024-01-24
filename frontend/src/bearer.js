@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const bearerUrl = "http://localhost:5001"; // Update this URL to the correct server URL
+const bearerUrl = "http://lms-backend.vercel.app"; // Update this URL to the correct server URL
 
 const publicApi = {
 	get: async (url) => {
