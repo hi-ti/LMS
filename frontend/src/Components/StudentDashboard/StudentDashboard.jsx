@@ -27,7 +27,7 @@ const StudentDashboard = () => {
 			<h1 className="text-5xl font-bold">Student Dashboard</h1>
 
 			<div className="flex flex-wrap gap-x-4 w-full mt-8">
-				{coursesEnrolled.map((course) => (
+				{coursesEnrolled !== "No courses" ? coursesEnrolled.map((course) => (
 					<>
 						<div className="bg-gray-200 py-4 px-2 w-64 rounded-xl">
 							<div className="flex flex-col gap-y-2 text-left">
@@ -55,7 +55,7 @@ const StudentDashboard = () => {
 							</div>
 						</div>
 					</>
-				))}
+				)) : <>No Courses Found</>}
 			</div>
 		</div>
 	);

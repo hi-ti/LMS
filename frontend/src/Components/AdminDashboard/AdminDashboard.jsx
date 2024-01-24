@@ -29,6 +29,7 @@ const AdminDashboard = () => {
 				.post("api/admin/students", { token: token })
 				.then((res) => {
 					setStudents(res.data);
+					console.log(res.data)
 				})
 				.catch((err) => {
 					console.log(err);
@@ -68,8 +69,10 @@ const AdminDashboard = () => {
 					</div>
 
 					<div className="flex flex-col gap-y-4 py-4 px-2">
-						{teachers.map((teacher) => (
-							<div className="flex flex-row gap-x-4">
+						{teachers.map((teacher) => {
+							console.log(teacher);
+
+							return (<div className="flex flex-row gap-x-4">
 								<h1 className="text-xl font-bold">{`${teacher.tuser.firstname} ${teacher.tuser.lastname}`}</h1>
 								<h1 className="text-xl font-bold">{teacher.tuser.email}</h1>
 
@@ -84,7 +87,7 @@ const AdminDashboard = () => {
 									})}
 								</Select> */}
 							</div>
-						))}
+						)})}
 					</div>
 				</div>
 				<div className="w-1/2 h-64 bg-gray-200 rounded-md">
