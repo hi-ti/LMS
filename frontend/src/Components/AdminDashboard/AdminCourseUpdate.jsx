@@ -3,7 +3,19 @@ import publicApi from "../../bearer";
 import toast from "react-hot-toast";
 
 const AdminCourseUpdate = () => {
-	const [coursesList, setCourseList] = useState([]);
+	const [coursesList, setCourseList] = useState([
+		{
+			cno: {
+				_id: "",
+				cname: "ur mom",
+				clevel: "",
+				cdes: "",
+				clec: "",
+				status: "",
+			},
+			suser: { _id: "", username: "" },
+		},
+	]);
 
 	const fetchData = async () => {
 		try {

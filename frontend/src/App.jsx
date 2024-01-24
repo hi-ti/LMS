@@ -13,6 +13,8 @@ import CourseCreatorForm from "./Components/AdminDashboard/CourseCreatorForm.jsx
 import CourseEditForm from "./Components/AdminDashboard/CourseEditForm.jsx";
 import TeacherDashboard from "./Components/TeacherDashboard/TeacherDashboard.jsx";
 import AssignCourses from "./Components/AdminDashboard/AssignCourses.jsx";
+import StudyCourse from "./Components/StudentDashboard/Study/StudyCourse.jsx";
+import Study from "./Components/StudentDashboard/Study/Study.jsx";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -68,6 +70,16 @@ function App() {
 								exact
 								path="/adminDashboard/assignCourses"
 								element={<AssignCourses />}
+							/>
+							<Route
+								exact
+								path="/studentDashboard/studyCourse/:course"
+								element={<StudyCourse />}
+							/>
+							<Route
+								exact
+								path="/studentDashboard/study/:course/:lecture"
+								element={<Study />}
 							/>
 						</>
 					) : (
