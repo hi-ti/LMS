@@ -1,12 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-app.use(
-	cors({
-		origin: "https://lms-frontend-hi-ti.vercel.app",
-		// Add other CORS options if needed
-	})
-);
+app.use(cors());
 app.use(express.json());
 const connectDB = require("./config/connectDB/connectDB");
 
