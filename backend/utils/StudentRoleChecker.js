@@ -12,8 +12,10 @@ const StudentRoleChecker = async (req, res, next) => {
 		const roleArray = ["student", "admin"];
 		// console.log(result.role);
 
-		if (!roleArray.includes(result.role))
-			return res.status(403).json("Unauthorised");
+		if (!roleArray.includes(result.role)) {
+			res.status(403).json("Unauthorised");
+			return;
+		}
 
 		next();
 	} catch (e) {
