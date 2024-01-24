@@ -1,9 +1,16 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-app.use(cors({origin: "*"}));
+app.use(
+	cors({
+		origin: "https://lms-frontend-hi-ti.vercel.app",
+		// Add other CORS options if needed
+	})
+);
 app.use(express.json());
 const connectDB = require("./config/connectDB/connectDB");
+
+app.options("*", cors());
 
 // importing routes
 const authRoute = require("./routes/auth/route");
@@ -11,8 +18,8 @@ const studentRoute = require("./routes/student/route");
 const teacherRoute = require("./routes/teacher/route");
 const courseRoute = require("./routes/course/route");
 const adminRoute = require("./routes/admin/route");
-const homeRoute = require('./routes/public/route');
-const userRoute = require('./routes/user/route');
+const homeRoute = require("./routes/public/route");
+const userRoute = require("./routes/user/route");
 
 const PORT = 5001;
 
