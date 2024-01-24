@@ -9,6 +9,9 @@ const {
 	studentCourseUpdate,
 	studentCourses,
 	addCourseToStudentRequest,
+	studentDashboard,
+	CourseLectures,
+	ParticularLecture,
 } = require("../../controllers/student/studentController");
 
 router.use(JWTDecoder);
@@ -25,6 +28,10 @@ router.post("/courseAdd", studentCourseUpdate);
 router.post("/myCourses", studentCourses);
 
 router.post("/addCourseRequest", addCourseToStudentRequest);
+
+router.post("/studentDashboard/:course", CourseLectures);
+
+router.post("/studentDashboard/:course/:lecture", ParticularLecture);
 
 // router.post("/home", studentDashboard);
 
