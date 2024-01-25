@@ -6,6 +6,41 @@
 			"use": "@vercel/node"
 		}
 	],
-
-	"rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+	"routes": [
+		{
+			"src": "/api/(.*)",
+			"dest": "/index",
+			"methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+			"headers": {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+				"Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Origin, Authorization",
+				"Access-Control-Allow-Credentials": "true"
+			}
+		},
+		{
+			"src": "/api/auth",
+			"dest": "/routes/auth/route"
+		},
+		{
+			"src": "/api/student",
+			"dest": "/routes/student/route"
+		},
+		{
+			"src": "/api/teacher",
+			"dest": "/routes/tecaher/route"
+		},
+		{
+			"src": "/api/course",
+			"dest": "/routes/course/route"
+		},
+		{
+			"src": "/api/admin",
+			"dest": "/routes/admin/route"
+		},
+		{
+			"src": "/api/home",
+			"dest": "/routes/public/route"
+		}
+	]
 }
