@@ -24,15 +24,15 @@ const userRoute = require("./routes/user/route");
 
 const PORT = 5001;
 
-app.get("/", (req, res) => {
-	res.send("Hello World");
-});
 app.use("/api/auth", authRoute);
 app.use("/api/student", studentRoute);
 app.use("/api/teacher", teacherRoute);
 app.use("/api/course", courseRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api", homeRoute);
+app.get("/", (req, res) => {
+	res.send("Hello World");
+});
 // app.use("/api", userRoute);
 
 app.listen(PORT, () => {
