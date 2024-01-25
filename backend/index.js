@@ -11,6 +11,8 @@ const connectDB = require("./config/connectDB/connectDB");
 
 app.options("*", cors());
 
+//x
+
 // importing routes
 const authRoute = require("./routes/auth/route");
 const studentRoute = require("./routes/student/route");
