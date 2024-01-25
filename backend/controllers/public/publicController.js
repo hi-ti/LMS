@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Courses = require("../../models/courses");
 
 const dashboard = async (req, res) => {
+	console.log("CALLED ME BITCHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	try {
 		// Fetch all courses
 		const allCourses = await Courses.find({});
@@ -16,8 +17,8 @@ const dashboard = async (req, res) => {
 		});
 	} catch (error) {
 		console.error(error);
-		res.status(500).send('Internal Server Error');
+		res.status(500).send("Internal Server Error");
 	}
-}
+};
 
-module.exports = { dashboard }
+module.exports = { dashboard };
