@@ -9,7 +9,7 @@ app.use(
 app.use(express.json());
 const connectDB = require("./config/connectDB/connectDB");
 
-app.options("*", cors());
+// app.options("*", cors());
 
 //x
 
@@ -33,7 +33,7 @@ app.use("/api/teacher", teacherRoute);
 app.use("/api/course", courseRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api", homeRoute);
-app.use("/api", userRoute);
+// app.use("/api", userRoute);
 
 app.listen(PORT, () => {
 	console.log(`Server running at ${PORT}`);
