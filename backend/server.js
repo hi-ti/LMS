@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
+
 app.use(
 	cors({
 		origin: "*",
 	})
 );
 app.use(express.json());
-require("./config/connectDB/connectDB")();
+require("./config/connectDB")();
 
 const authRoute = require("./routes/auth/route");
 const studentRoute = require("./routes/student/route");
