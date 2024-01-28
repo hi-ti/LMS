@@ -7,7 +7,7 @@ app.use(
 	})
 );
 app.use(express.json());
-const connectDB = require("./config/connectDB/connectDB");
+require("./config/connectDB/connectDB")();
 
 // app.options("*", cors());
 
@@ -37,7 +37,6 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(`Server running at ${PORT}`);
-	connectDB();
 });
 
 // ayy
