@@ -1,6 +1,5 @@
 const express = require("express");
 const JWTDecoder = require("../../utils/JWTDecoder");
-const app = express();
 const router = express.Router();
 
 const {

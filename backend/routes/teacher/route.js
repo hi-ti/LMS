@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 const TeacherRoleChecker = require("../../utils/TeacherRoleChecker");
 const JWTDecoder = require("../../utils/JWTDecoder");
