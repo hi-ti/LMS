@@ -2,9 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 app.use(
-	cors({
-		origin: "*",
-	})
+	cors()
 );
 app.use(express.json());
 const connectDB = require("./config/connectDB/connectDB");
