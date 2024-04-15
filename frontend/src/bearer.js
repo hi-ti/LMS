@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const bearerUrl = "https://lms-gules-nine.vercel.app"; // Update this URL to the correct server URL
+const bearerUrl = "https://lms-black-two.vercel.app/"; // Update this URL to the correct server URL
 
 const publicApi = {
 	get: async (url) => {
