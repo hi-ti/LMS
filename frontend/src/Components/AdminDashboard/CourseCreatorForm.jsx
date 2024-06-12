@@ -8,102 +8,124 @@ const CourseCreatorForm = () => {
 	const [courseDescription, setCourseDescription] = useState("");
 	const [courseDuration, setCourseDuration] = useState("");
 	const [courseLectures, setCourseLectures] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+		if (!courseName || !courseDuration || !courseLectures) {
+			toast.error("Please fill out all required fields.");
+			return;
+		}
+
+		setIsSubmitting(true);
+
 		try {
 			const response = await publicApi.post("api/course/add", {
 				token: sessionStorage.getItem("token"),
 				cname: courseName,
-				clevel: courseLevel ? courseLevel : undefined,
-				cdesc: courseDescription ? courseDescription : undefined,
-				cdur: courseDuration ? courseDuration : undefined,
-				clec: courseLectures ? courseLectures : undefined,
+				clevel: courseLevel || undefined,
+				cdesc: courseDescription || undefined,
+				cdur: courseDuration ? { hours: +courseDuration } : undefined,
+				clec: courseLectures ? +courseLectures : undefined,
 			});
 
 			if (response.status === 200) {
 				toast.success("Successfully created");
+				setCourseName("");
+				setCourseLevel("");
+				setCourseDescription("");
+				setCourseDuration("");
+				setCourseLectures("");
 			} else {
-				console.log(response.data);
-				// toast.error(response);
+				toast.error(response.data);
 			}
 		} catch (e) {
-			console.log(e);
-			// toast.error(e.response.data);
+			toast.error(e.response?.data || "Error creating course");
+		} finally {
+			setIsSubmitting(false);
 		}
 	}
 
 	return (
-		<div className="text-left mt-8">
-			<h2 className="text-5xl font-bold">Create a new course</h2>
-			<form className="flex flex-col gap-y-2">
-				<div className="flex gap-x-4 items-center">
-					<label htmlFor="courseName" className="w-40">
-						Course Name
+		<div className="max-w-lg mx-auto mt-8">
+			<h2 className="text-3xl font-bold mb-6">Create a New Course</h2>
+			<form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
+				<div className="flex flex-col gap-y-2">
+					<label htmlFor="courseName" className="font-medium">
+						Course Name <span className="text-red-500">*</span>
 					</label>
 					<input
 						type="text"
-						className="border border-black px-2 py-1 rounded-md"
+						className="border border-gray-300 px-3 py-2 rounded-md"
 						id="courseName"
-						placeholder="Enter course name"
+						value={courseName}
 						onChange={(e) => setCourseName(e.target.value)}
+						required
 					/>
 				</div>
-				<div className="flex gap-x-4 items-center">
-					<label htmlFor="courseLevel" className="w-40">
+				<div className="flex flex-col gap-y-2">
+					<label htmlFor="courseLevel" className="font-medium">
 						Course Level
 					</label>
-					<input
-						type="text"
-						className="border border-black px-2 py-1 rounded-md"
+					<select
+						className="border border-gray-300 px-3 py-2 rounded-md"
 						id="courseLevel"
-						placeholder="Enter course level"
+						value={courseLevel}
 						onChange={(e) => setCourseLevel(e.target.value)}
-					/>
+					>
+						<option value="">Select Level</option>
+						<option value="Beginner">Beginner</option>
+						<option value="Intermediate">Intermediate</option>
+						<option value="Advanced">Advanced</option>
+					</select>
 				</div>
-				<div className="flex gap-x-4 items-center">
-					<label htmlFor="courseDescription" className="w-40">
+				<div className="flex flex-col gap-y-2">
+					<label htmlFor="courseDescription" className="font-medium">
 						Course Description
 					</label>
 					<input
 						type="text"
-						className="border border-black px-2 py-1 rounded-md"
+						className="border border-gray-300 px-3 py-2 rounded-md"
 						id="courseDescription"
-						placeholder="Enter course description"
+						value={courseDescription}
 						onChange={(e) => setCourseDescription(e.target.value)}
 					/>
 				</div>
-				<div className="flex gap-x-4 items-center">
-					<label htmlFor="courseDuration" className="w-40">
-						Course Duration
+				<div className="flex flex-col gap-y-2">
+					<label htmlFor="courseDuration" className="font-medium">
+						Course Duration (hrs) <span className="text-red-500">*</span>
 					</label>
 					<input
-						type="text"
-						className="border border-black px-2 py-1 rounded-md"
+						type="number"
+						className="border border-gray-300 px-3 py-2 rounded-md"
 						id="courseDuration"
-						placeholder="Enter course duration in hrs"
-						onChange={(e) => setCourseDuration({ hours: +e.target.value })}
+						value={courseDuration}
+						onChange={(e) => setCourseDuration(e.target.value)}
+						required
 					/>
 				</div>
-				<div className="flex gap-x-4 items-center">
-					<label htmlFor="courseLectures" className="w-40">
-						Course Lectures
+				<div className="flex flex-col gap-y-2">
+					<label htmlFor="courseLectures" className="font-medium">
+						Course Lectures <span className="text-red-500">*</span>
 					</label>
 					<input
-						type="text"
-						className="border border-black px-2 py-1 rounded-md"
+						type="number"
+						className="border border-gray-300 px-3 py-2 rounded-md"
 						id="courseLectures"
-						placeholder="Enter course lectures"
-						onChange={(e) => setCourseLectures(+e.target.value)}
+						value={courseLectures}
+						onChange={(e) => setCourseLectures(e.target.value)}
+						required
 					/>
 				</div>
-				<button
-					type="submit"
-					className="btn bg-black text-white px-4 py-2 w-fit rounded-xl"
-					onClick={handleSubmit}
-				>
-					Submit
-				</button>
+				<div className="flex justify-center">
+					<button
+						type="submit"
+						className="w-1/4 btn bg-blue-600 text-white px-4 py-2 rounded-md mt-4"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? "Submitting..." : "Submit"}
+					</button>
+				</div>
 			</form>
 		</div>
 	);

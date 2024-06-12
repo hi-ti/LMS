@@ -3,26 +3,13 @@ import publicApi from "../../bearer";
 import toast from "react-hot-toast";
 
 const AdminCourseUpdate = () => {
-	const [coursesList, setCourseList] = useState([
-		{
-			cno: {
-				_id: "",
-				cname: "ur mom",
-				clevel: "",
-				cdes: "",
-				clec: "",
-				status: "",
-			},
-			suser: { _id: "", username: "" },
-		},
-	]);
+	const [coursesList, setCourseList] = useState([]);
 
 	const fetchData = async () => {
 		try {
 			const response = await publicApi.post("api/admin/approvalsRequests", {
 				token: sessionStorage.getItem("token"),
 			});
-			console.log(response.data);
 			setCourseList(response.data);
 		} catch (e) {
 			console.log(e);
@@ -45,6 +32,7 @@ const AdminCourseUpdate = () => {
 
 			if (response.status === 200) {
 				toast.success("Successfully updated");
+				fetchData();  // Refresh data after update
 			} else {
 				toast.error(response.data);
 			}
@@ -55,30 +43,25 @@ const AdminCourseUpdate = () => {
 	};
 
 	return (
-		<div className="mt-8">
-			<h1 className="text-5xl font-bold">Admin Course Update</h1>
-
-			<div className="flex flex-col gap-y-4">
+		<div className="min-h-screen bg-gray-50 p-8">
+			<h1 className="text-4xl font-semibold mb-8 text-gray-800">Admin Course Update</h1>
+			<div className="space-y-6">
 				{coursesList.map((course) => (
-					<div className="flex flex-col gap-y-2 text-left">
-						<div className="flex flex-col gap-y-2">
-							<div>Course Name: {course.cno.cname}</div>
-							<div>Course Level: {course.cno.clevel}</div>
-							<div>Course Description: {course.cno.cdes}</div>
-							{/* <div>Course Duration: {course.cdur.hours}</div> */}
-							<div>Course Lectures: {course.cno.clec}</div>
-							<div>
-								Course Created On:{" "}
-								{new Date(course.cno.CrD).toLocaleDateString()}
-							</div>
-							<div>Requested by: {course.suser.username}</div>
-							<div className="status">
+					<div key={course.cno._id} className="bg-white p-6 rounded-lg shadow-lg">
+						<div className="space-y-2">
+							<p className="text-xl font-medium text-gray-700">Course Name: {course.cno.cname}</p>
+							<p className="text-lg text-gray-600">Level: {course.cno.clevel}</p>
+							<p className="text-lg text-gray-600">Description: {course.cno.cdes}</p>
+							<p className="text-lg text-gray-600">Lectures: {course.cno.clec}</p>
+							<p className="text-lg text-gray-600">Created On: {new Date(course.cno.CrD).toLocaleDateString()}</p>
+							<p className="text-lg text-gray-600">Requested by: {course.suser.username}</p>
+							<p className={`text-lg font-semibold ${course.status ? 'text-green-600' : 'text-yellow-600'}`}>
 								Status: {course.status ? "Approved" : "Waiting"}
-							</div>
+							</p>
 						</div>
-						<div className="flex gap-x-4">
+						<div className="flex space-x-4 mt-4">
 							<button
-								className="bg-green-500 text-white px-4 py-2 rounded-lg"
+								className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
 								onClick={() =>
 									ApprovalStatusUpdater({
 										id: course.suser._id,
@@ -90,7 +73,7 @@ const AdminCourseUpdate = () => {
 								Approve
 							</button>
 							<button
-								className="bg-red-500 text-white px-4 py-2 rounded-lg"
+								className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
 								onClick={() =>
 									ApprovalStatusUpdater({
 										id: course.suser._id,

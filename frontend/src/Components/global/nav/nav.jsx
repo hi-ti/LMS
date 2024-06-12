@@ -21,8 +21,8 @@ const Nav = () => {
 		}
 	}, [userExists]);
 	return (
-		<div className="m-0 p-0 flex w-full z-10">
-			<div className="flex w-1/6">
+		<div className="flex items-center justify-between p-4 bg-gray-800 text-white">
+			<div className="">
 				<div className=" w-full font-bold text-2xl text-left">LearnToday</div>
 			</div>
 			<div className="w-4/6"></div>
@@ -38,12 +38,12 @@ const Nav = () => {
 			) : (
 				<>
 					<div className="flex w-1/6">
-						<div className=" w-full font-bold text-2xl text-right">
+						<div className=" bg-blue-600 py-2 px-4 rounded-lg font-semibold">
 							<a href="/login">Login</a>
 						</div>
 					</div>
 					<div className="flex w-1/6">
-						<div className=" w-full font-bold text-2xl text-right">
+						<div className="bg-green-600 py-2 px-4 rounded-lg font-semibold">
 							<a href="/signup">Signup</a>
 						</div>
 					</div>

@@ -17,38 +17,39 @@ const AddLectureModal = ({ pushCourse, clickElse }) => {
 				}
 			}}
 		>
-			<div className="flex flex-col gap-y-2">
+			<div className="bg-white p-4 rounded-md shadow-md flex flex-col gap-y-2">
 				<input
 					type="text"
 					placeholder="Lecture Name"
 					value={name}
-					className="py-1 px-2 input"
+					className="py-1 px-2 input border border-gray-300 rounded-md"
 					onChange={(e) => setName(e.target.value)}
 				/>
-				<br />
 				<textarea
 					placeholder="Description"
 					rows={4}
 					cols={50}
 					value={lecDesc}
-					className="py-1 px-2 input"
+					className="py-1 px-2 input border border-gray-300 rounded-md"
 					onChange={(e) => setLecDesc(e.target.value)}
 				></textarea>
-				<br />
 				<input
 					type="url"
 					placeholder="Link to Lecture"
 					value={leclink}
-					className="py-1 px-2 input"
+					className="py-1 px-2 input border border-gray-300 rounded-md"
 					onChange={(e) =>
 						setLeclink(
-							e.target.value.replace(/ /g, "") // remove spaces'
+							e.target.value.replace(/ /g, "") // remove spaces
 						)
 					}
 				/>
 				<button
-					className="input bg-white text-black px-2 py-1"
-					onClick={() => pushCourse({ name, lecDesc, leclink })}
+					className="input bg-blue-500 text-white px-2 py-1 rounded-md"
+					onClick={() => {
+						pushCourse({ name, lecDesc, leclink });
+						clickElse(false);
+					}}
 				>
 					Add Lecture
 				</button>
@@ -59,20 +60,9 @@ const AddLectureModal = ({ pushCourse, clickElse }) => {
 
 const CourseEditForm = () => {
 	const [showModal, setShowModal] = useState(false);
-
-	const [course, setCourse] = useState({ cdur: { hours: 0 } });
-	const [teachers, setTeachers] = useState({
-		name: "",
-	});
+	const [course, setCourse] = useState({ cdur: { hours: 0 }, clevel: "", cdes: "", cname: "" });
 	const [students, setStudents] = useState([]);
-	const [lectures, setLectures] = useState([
-		{
-			name: "",
-			lecDesc: "",
-			lecLink: "",
-			order: 1,
-		},
-	]);
+	const [lectures, setLectures] = useState([]);
 
 	const { id } = useParams();
 
@@ -81,14 +71,11 @@ const CourseEditForm = () => {
 			const response = await publicApi.post(`api/admin/course/${id}`, {
 				token: sessionStorage.getItem("token"),
 			});
-			console.log(response);
 			setCourse(response.data.course);
-			console.log(course);
 			setStudents(response.data.users);
 			setLectures(response.data.lectures);
 		} catch (e) {
-			console.log(e);
-			toast.error(e.response.data);
+			toast.error(e.response?.data || "Error fetching course data");
 		}
 	};
 
@@ -102,168 +89,149 @@ const CourseEditForm = () => {
 				newLectures: lectures,
 				token: token,
 			});
-
 			if (response.status === 200) {
 				toast.success("Updated Course Data");
 			}
 		} catch (e) {
-			console.log(e);
-			toast.error(response.data.message);
+			toast.error(e.response?.data?.message || "Error updating course data");
 		}
 	};
 
-	const removeLect = (id) => {
-		console.log(id);
-		let newArr = lectures;
-		let index = newArr.findIndex((x) => x._id == id);
-		newArr.splice(index, 1);
-		console.log(newArr);
-		for (var i = 0; i < newArr.length; i++) {
-			newArr[i].order = i + 1;
-		}
-		console.log(newArr);
-		setLectures([...newArr]);
-
-		// console.log(lectures);
+	const removeLect = (lectureId) => {
+		const updatedLectures = lectures.filter((lecture) => lecture._id !== lectureId);
+		updatedLectures.forEach((lecture, index) => {
+			lecture.order = index + 1;
+		});
+		setLectures(updatedLectures);
 	};
 
 	const pushCourse = (data) => {
-		console.log(data);
-		const newArray = lectures;
-		newArray.push({
+		const newLecture = {
 			cid: course._id,
 			name: data.name,
 			lecDesc: data.lecDesc,
 			leclink: data.leclink,
 			order: lectures.length + 1,
-		});
-
-		setLectures([...newArray]);
+		};
+		setLectures([...lectures, newLecture]);
 	};
 
 	useEffect(() => {
 		dataFetcher();
-		// console.log(course);
-
-		// sort lectures objects according to value of order
-		// lectures.sort((a, b) => a.order - b.order);
-		// console.log(lectures);
-	}, []);
-
-	useEffect(() => {
-		// sort lectures array using
-	}, [lectures]);
+	}, [id]);
 
 	return (
-		<div className=" relative h-screen">
-			{showModal ? (
-				<>
-					<AddLectureModal pushCourse={pushCourse} clickElse={setShowModal} />
-				</>
-			) : (
-				<></>
+		<div className="relative h-screen p-4">
+			{showModal && (
+				<AddLectureModal pushCourse={pushCourse} clickElse={setShowModal} />
 			)}
-			<div className="text-5xl font-bold">Course Editor</div>
+			<h1 className="text-5xl font-bold mb-6">Course Editor</h1>
 			<div className="container mx-auto">
 				<div className="flex">
 					<div className="flex flex-col gap-y-4 w-1/2">
 						<div className="text-2xl font-semibold mt-8 text-left flex flex-col gap-y-4">
-							<div className="CourseName flex gap-x-4">
-								Course Name:{" "}
+							<div className="flex gap-x-4 items-center">
+								<label>Course Name:</label>
 								<input
 									type="text"
-									className="border-black border py-1 text-lg rounded-md outline-none px-1"
-									placeholder={course.cname}
+									className="border-black border py-1 text-lg rounded-md outline-none px-1 flex-1"
+									value={course.cname}
+									onChange={(e) =>
+										setCourse({ ...course, cname: e.target.value })
+									}
 								/>
 							</div>
-							<div className="CourseName">
-								Total Lectures: {lectures.length}
+							<div className="flex gap-x-4 items-center">
+								<label>Total Lectures:</label>
+								<span>{lectures.length}</span>
 							</div>
-							<div className="CourseName flex gap-x-4">
-								Total Hours:{" "}
+							<div className="flex gap-x-4 items-center">
+								<label>Total Hours:</label>
 								<input
-									type="text"
-									className="border-black border py-1 text-lg rounded-md outline-none px-1"
-									placeholder={course.cdur.hours}
+									type="number"
+									className="border-black border py-1 text-lg rounded-md outline-none px-1 flex-1"
+									value={course.cdur.hours}
+									onChange={(e) =>
+										setCourse({ ...course, cdur: { hours: +e.target.value } })
+									}
 								/>
 							</div>
-							<div className="CourseName flex gap-x-4">
-								Course Level:{" "}
+							<div className="flex gap-x-4 items-center">
+								<label>Course Level:</label>
 								<input
 									type="text"
-									className="border-black border py-1 text-lg rounded-md outline-none px-1"
-									placeholder={course.clevel}
+									className="border-black border py-1 text-lg rounded-md outline-none px-1 flex-1"
+									value={course.clevel}
+									onChange={(e) =>
+										setCourse({ ...course, clevel: e.target.value })
+									}
 								/>
 							</div>
-							<div className="CourseName flex gap-x-4">
-								Created On: {new Date(course.CrD).toLocaleDateString()}
+							<div className="flex gap-x-4 items-center">
+								<label>Created On:</label>
+								<span>{new Date(course.CrD).toLocaleDateString()}</span>
 							</div>
-							<div className="CourseDesc flex gap-x-4">
-								Course Description:{" "}
+							<div className="flex gap-x-4 items-center">
+								<label>Course Description:</label>
 								<input
 									type="text"
-									className="border-black border py-1 text-lg rounded-md outline-none px-1"
-									placeholder={course.cdes}
+									className="border-black border py-1 text-lg rounded-md outline-none px-1 flex-1"
+									value={course.cdes}
+									onChange={(e) =>
+										setCourse({ ...course, cdes: e.target.value })
+									}
 								/>
 							</div>
 						</div>
-						<div
-							className="updatebtn bg-black text-white py-1 px-3 text-xl w-fit rounded-lg"
-							onClick={dataUpdater}
-						>
-							{" "}
-							Update
+						<div className="flex justify-center">
+							<button
+								className="w-1/4 bg-blue-500 text-white py-2 px-4 text-xl rounded-lg mt-4"
+								onClick={dataUpdater}
+							>
+								Update
+							</button>
 						</div>
 					</div>
 
-					<div className="w-1/2 h-80 overflow-y-scroll text-left">
-						{/* <LectureForm /> */}
-						<div className="flex justify-between w-full">
-							<div className="text-xl font-semibold">Courses</div>
+					<div className="w-1/2 h-80 overflow-y-scroll text-left pl-4">
+						<div className="flex justify-between w-full mb-4">
+							<h2 className="text-xl font-semibold">Lectures</h2>
 							<button
-								className="addLec bg-black text-white px-2 py-0.5 rounded-lg"
+								className="bg-blue-500 text-white px-2 py-1 rounded-lg"
 								onClick={() => setShowModal(true)}
 							>
 								Add Lecture
 							</button>
 						</div>
-						<div className="flex gap-x-1  gap-y-1 flex-wrap w-48">
-							{lectures.map((e) => {
-								console.log(e);
-								console.log(e.cid);
-								return (
-									// <LectureCard key={e._id}
-									<div className="flex flex-col gap-y-1">
-										<div className="lecture flex gap-x-1 items-center">
-											<div className="name w-24 text-left">{e.name}</div>
-											<button
-												className="bg-black text-white px-2 py-1 w-64 rounded-md"
-												onClick={() => removeLect(e._id)}
-											>
-												Remove Lect
-											</button>
-										</div>
-									</div>
-								);
-							})}
-						</div>
+						{lectures.map((lecture, index) => (
+							<div
+								key={lecture._id || index}
+								className="flex justify-between items-center mb-2"
+							>
+								<span>{lecture.name}</span>
+								<button
+									className="bg-red-500 text-white px-2 py-1 rounded-md"
+									onClick={() => removeLect(lecture._id)}
+								>
+									Remove
+								</button>
+							</div>
+						))}
 					</div>
 				</div>
-			</div>
-			{/* Showing Modal */}
-
-			<div className="text-2xl font-semibold mt-8 text-left">
-				<div className="CourseName">Students Enrolled: </div>
-				{students.length > 0 ? (
-					students.map((student) => (
-						<div className="flex gap-x-4">
-							<div className="CourseName">{student.suser.username}</div>
-							<div className="CourseName">{student.suser.email}</div>
-						</div>
-					))
-				) : (
-					<>No Form Found</>
-				)}
+				<div className="text-2xl font-semibold mt-8 text-left">
+					<div className="mb-4">Students Enrolled:</div>
+					{students.length > 0 ? (
+						students.map((student) => (
+							<div key={student.suser._id} className="flex gap-x-4">
+								<div>{student.suser.username}</div>
+								<div>{student.suser.email}</div>
+							</div>
+						))
+					) : (
+						<div>No students found</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

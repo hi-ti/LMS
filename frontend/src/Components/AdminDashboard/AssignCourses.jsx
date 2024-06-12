@@ -7,6 +7,7 @@ const AssignCourses = () => {
 	const [allTeachers, setAllTeachers] = useState([]);
 
 	const token = sessionStorage.getItem("token");
+
 	const dataFetcher = async () => {
 		try {
 			const response = await publicApi.post("api/admin/coursesTeachers", {
@@ -14,12 +15,11 @@ const AssignCourses = () => {
 			});
 
 			if (response.status === 200) {
-				console.log(response.data);
 				setCourses(response.data.courses);
 				setAllTeachers(response.data.allTeachers);
 			}
 		} catch (e) {
-			toast.error(response.data);
+			toast.error("Failed to fetch data");
 		}
 	};
 
@@ -36,41 +36,35 @@ const AssignCourses = () => {
 			});
 			if (response.status === 200) {
 				toast.success("Assigned the course to teacher");
+				dataFetcher(); // Refresh data after assignment
 			}
 		} catch (e) {
 			toast.error("Error assigning");
 		}
 	};
-	return (
-		<div>
-			<div className="text-5xl font-bold">Assign Courses</div>
 
-			<div className="flex flex-col gap-y-4 text-left">
+	return (
+		<div className="min-h-screen bg-gray-50 p-8">
+			<h1 className="text-4xl font-bold mb-8">Assign Courses</h1>
+
+			<div className="space-y-6">
 				{courses.map((course) => (
-					<>
-						<h1 className="text-2xl font-bold">{course.cname}</h1>
+					<div key={course._id} className="bg-white p-6 rounded-lg shadow-md">
+						<h2 className="text-2xl font-semibold mb-4">{course.cname}</h2>
 						<select
 							onChange={(event) => handleSelect(event, course)}
-							className={"bg-gray-200 w-72 py-1 px-2"}
+							className="bg-gray-200 w-72 py-2 px-3 rounded-lg"
 						>
 							<option value={course.teacher ? course.teacherId : "null"}>
 								{course.teacher ? course.teacher : "Not assigned yet"}
 							</option>
-							{allTeachers.map((teacher) => {
-								return (
-									<>
-										{course.teacherId !== teacher.tuser._id ? (
-											<option value={teacher.tuser._id}>
-												{teacher.tuser.username}
-											</option>
-										) : (
-											<></>
-										)}
-									</>
-								);
-							})}
+							{allTeachers.map((teacher) => (
+								<option key={teacher.tuser._id} value={teacher.tuser._id}>
+									{teacher.tuser.username}
+								</option>
+							))}
 						</select>
-					</>
+					</div>
 				))}
 			</div>
 		</div>

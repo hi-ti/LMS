@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from "react";
 import publicApi from "../../bearer";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Courses = () => {
-	const [data, setData] = useState([
-		{
-			cname: "",
-			cbranch: "",
-			clec: 0,
-			clevel: "beginner",
-			cno: 0,
-			cdur: {
-				hours: 1,
-			},
-			cdes: "",
-		},
-	]);
+	const [data, setData] = useState([]);
 
 	const fetchData = async () => {
-		const dataFetcher = await publicApi.get("api/home");
-		console.log(dataFetcher.data.courses);
-		setData(dataFetcher.data.courses);
-		console.log(dataFetcher);
+		try {
+			const response = await publicApi.get("api/home");
+			setData(response.data.courses);
+		} catch (error) {
+			console.error("Error fetching data:", error);
+		}
 	};
 
 	useEffect(() => {
@@ -30,30 +19,22 @@ const Courses = () => {
 	}, []);
 
 	return (
-		<div className="container mx-auto courses">
-			<div className="flex flex-col gap-y-8">
-				<p className="text-center text-5xl font-bold">All Courses</p>
+		<div className="min-h-screen bg-gray-50 p-8">
+			<h1 className="text-center text-4xl font-semibold mb-8 text-gray-800">All Courses</h1>
 
-				<div className="grid grid-cols-3 gap-4 text-left">
-					{data.map((course, index) => (
-						<Link to={`/course/${course._id}`} key={index}>
-							<div className="bg-gray-200 rounded-lg shadow-lg p-4">
-								<p className="text-2xl font-bold">
-									Course Name: {course.cname}
-								</p>
-								<p className="text-xl font-bold">Branch: {course.cbranch}</p>
-								<p className="text-xl font-bold">
-									Total Lectures: {course.clec}
-								</p>
-								<p className="text-xl font-bold">Level: {course.clevel}</p>
-								<p className="text-xl font-bold">
-									Duration: {course.cdur.hours} hrs
-								</p>
-								<p className="text-lg font-bold">{course.cdes}</p>
-							</div>
-						</Link>
-					))}
-				</div>
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+				{data.map((course, index) => (
+					<Link to={`/course/${course._id}`} key={index}>
+						<div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+							<h2 className="text-2xl font-semibold text-gray-800 mb-2">{course.cname}</h2>
+							<p className="text-lg text-gray-600">Branch: {course.cbranch}</p>
+							<p className="text-lg text-gray-600">Total Lectures: {course.clec}</p>
+							<p className="text-lg text-gray-600">Level: {course.clevel}</p>
+							<p className="text-lg text-gray-600">Duration: {course.cdur.hours} hrs</p>
+							<p className="text-md text-gray-500 mt-2">{course.cdes}</p>
+						</div>
+					</Link>
+				))}
 			</div>
 		</div>
 	);
