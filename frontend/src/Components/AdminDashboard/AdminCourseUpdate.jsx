@@ -43,7 +43,7 @@ const AdminCourseUpdate = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50 p-8">
+		<div className="min-h-screen mt-16 bg-gray-50 p-8">
 			<h1 className="text-4xl font-semibold mb-8 text-gray-800">Admin Course Update</h1>
 			<div className="space-y-6">
 				{coursesList.map((course) => (

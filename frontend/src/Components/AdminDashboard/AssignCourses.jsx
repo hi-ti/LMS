@@ -44,7 +44,7 @@ const AssignCourses = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50 p-8">
+		<div className="min-h-screen mt-16 bg-gray-50 p-8">
 			<h1 className="text-4xl font-bold mb-8">Assign Courses</h1>
 
 			<div className="space-y-6">

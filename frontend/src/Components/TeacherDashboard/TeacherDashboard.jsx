@@ -26,7 +26,7 @@ const TeacherDashboard = () => {
 	}, []);
 
 	return (
-		<div className="mt-8 p-4">
+		<div className="mt-16 p-4">
 			<div className="text-5xl font-bold text-center mb-8">Assigned Courses</div>
 			<div className="flex flex-wrap gap-6 justify-center">
 				{courses && courses.length > 0 ? (

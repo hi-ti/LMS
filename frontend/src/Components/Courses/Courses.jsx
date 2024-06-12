@@ -19,7 +19,7 @@ const Courses = () => {
 	}, []);
 
 	return (
-		<div className="min-h-screen bg-gray-50 p-8">
+		<div className="min-h-screen mt-16 bg-gray-50 p-8">
 			<h1 className="text-center text-4xl font-semibold mb-8 text-gray-800">All Courses</h1>
 
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

@@ -39,7 +39,7 @@ const CourseDetails = () => {
     };
 
     return (
-        <div className="container mx-auto mt-8">
+        <div className="container mx-auto mt-16">
             <div className="text-4xl font-semibold mb-6">Course Details</div>
             <div className="bg-white p-6 rounded-lg shadow">
                 <div className="flex flex-col space-y-4">

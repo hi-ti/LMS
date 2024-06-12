@@ -47,7 +47,7 @@ const CourseCreatorForm = () => {
 	}
 
 	return (
-		<div className="max-w-lg mx-auto mt-8">
+		<div className="max-w-lg mt-16 mx-auto mt-8">
 			<h2 className="text-3xl font-bold mb-6">Create a New Course</h2>
 			<form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-y-2">

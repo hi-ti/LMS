@@ -24,7 +24,7 @@ const StudentDashboard = () => {
 	}, []);
 
 	return (
-		<div className="mt-8 p-4">
+		<div className="mt-16 p-4">
 			<h1 className="text-5xl font-bold text-center mb-8">Student Dashboard</h1>
 
 			<div className="flex flex-wrap gap-6 justify-center">
