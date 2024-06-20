@@ -39,24 +39,24 @@ const CourseDetails = () => {
     };
 
     return (
-        <div className="container mx-auto mt-16">
-            <div className="text-4xl font-semibold mb-6">Course Details</div>
-            <div className="bg-white p-6 rounded-lg shadow">
-                <div className="flex flex-col space-y-4">
-                    <div className="text-xl font-semibold">Course Name: {data.cname}</div>
+        <div className="min-h-screen p-8 bg-custom-dark flex justify-center items-center">
+            <div className="max-w-4xl w-1/3 bg-custom-light p-6 rounded-lg shadow-lg">
+                {/* <h2 className="text-3xl font-bold mb-6 text-custom-red">Course Details</h2> */}
+                <div className="flex flex-col gap-y-4 text-custom-red">
+                    <div className="text-3xl font-bold mb-6 text-custom-red">{data.cname}</div>
                     <div>Total Lectures: {data.clec}</div>
                     <div>Total Hours: {data.cdur.hours}</div>
                     <div>Course Level: {data.clevel}</div>
                     <div>Created On: {new Date(data.CrD).toLocaleDateString()}</div>
                     <div>Course Description: {data.cdes}</div>
-                    <div className="flex justify-center">
-					<button
-                        className="bg-blue-600 text-white py-2 px-2 rounded-lg mt-8 w-36"
-                        onClick={sendRegisterRequest}
-                    >
-                        Join Now
-                    </button>
-					</div>
+                    <div className="flex justify-center mt-6">
+                        <button
+                            className="text-custom-red border-1 border-custom-red py-1 px-4 rounded-full font-semibold hover:bg-custom-red hover:text-custom-light transition duration-200"
+                            onClick={sendRegisterRequest}
+                        >
+                            Join Now
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

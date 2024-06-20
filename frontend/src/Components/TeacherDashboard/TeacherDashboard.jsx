@@ -13,7 +13,6 @@ const TeacherDashboard = () => {
 			const response = await publicApi.post("api/teacher/teacherCourses", {
 				token: token,
 			});
-			console.log(response);
 			setCourses(response.data);
 		} catch (err) {
 			console.log(err);
@@ -26,19 +25,24 @@ const TeacherDashboard = () => {
 	}, []);
 
 	return (
-		<div className="mt-16 p-4">
-			<div className="text-5xl font-bold text-center mb-8">Assigned Courses</div>
+		<div className="min-h-screen p-8 bg-custom-dark flex flex-col items-center">
+			<h2 className="text-4xl mt-8 font-bold mb-8 text-custom-red">Assigned Courses</h2>
 			<div className="flex flex-wrap gap-6 justify-center">
 				{courses && courses.length > 0 ? (
 					courses.map((e) => (
-						<div key={e.cid._id} className="bg-gray-200 py-4 px-6 w-64 rounded-xl shadow-lg flex flex-col justify-between">
-							<div className="text-left">
-								<div className="text-2xl font-bold mb-2">{e.cid.cname}</div>
+						<div
+							key={e.cid._id}
+							className="bg-custom-light py-4 px-6 w-64 rounded-xl shadow-lg flex flex-col justify-between"
+						>
+							<div className="text-center">
+								<div className="text-3xl font-bold mb-2 text-custom-red">
+									{e.cid.cname}
+								</div>
 							</div>
 							<div className="flex flex-col gap-y-2">
 								<Link
 									to={`/course/${e.cid._id}`}
-									className="text-blue-500 hover:text-blue-700 underline text-sm"
+									className="text-custom-red border-1 border-custom-red py-1 px-4 rounded-full font-semibold hover:bg-custom-red hover:text-custom-light transition duration-200"
 								>
 									View Course
 								</Link>
@@ -46,7 +50,7 @@ const TeacherDashboard = () => {
 						</div>
 					))
 				) : (
-					<div className="text-center text-xl">No Courses Found</div>
+					<div className="text-center text-xl text-custom-red">No Courses Found</div>
 				)}
 			</div>
 		</div>

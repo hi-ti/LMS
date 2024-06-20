@@ -77,13 +77,13 @@ const RoleModifier = () => {
 						{user.role === "student" ? (
 							<>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "teacher" })}
 								>
 									Convert to Teacher
 								</button>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "admin" })}
 								>
 									Convert to Admin
@@ -92,13 +92,13 @@ const RoleModifier = () => {
 						) : user.role === "teacher" ? (
 							<>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "student" })}
 								>
 									Convert to Student
 								</button>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "admin" })}
 								>
 									Convert to Admin
@@ -107,13 +107,13 @@ const RoleModifier = () => {
 						) : (
 							<>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "student" })}
 								>
 									Convert to Student
 								</button>
 								<button
-									className="btn bg-black text-white px-3 py-2 rounded-lg"
+									className="btn bg-black text-custom-red py-1 px-5 rounded-full"
 									onClick={() => RoleUpdater({ id: user._id, role: "teacher" })}
 								>
 									Convert to Teacher

@@ -15,7 +15,7 @@ body {
 	z-index: 0;
 }
 
-@media (min-width: 640px) {
+/* @media (min-width: 640px) {
 	body {
 		max-width: 640px;
 	}
@@ -34,4 +34,4 @@ body {
 	body {
 		max-width: 1280px;
 	}
-}
+} */

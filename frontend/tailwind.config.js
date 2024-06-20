@@ -7,19 +7,19 @@ export default {
 		extend: {
 			colors: {
 				custom: {
-					'black': '#04151F',
-					'pink': '#E9BCB7',
-					'purple': '#8A4FFF',
-					'green': '#09BC8A',
-					'blue': '#A0CCD8',
+					'dark': '#3D4255',
+					'red': '#EFF7CF',
+					'pink': '#E5446D',
+					'light': '#444b62',
+					'blue': '#7C9EB2',
 				},
 			},
-			backgroundImage: theme => ({
-				'gradient-dark-blue-light-pink': `linear-gradient(to right, ${theme('colors.custom.dark-blue')}, ${theme('colors.custom.light-pink')})`,
-				'gradient-purple-green': `linear-gradient(to right, ${theme('colors.custom.purple')}, ${theme('colors.custom.green')})`,
-				'gradient-light-blue-dark-blue': `linear-gradient(to right, ${theme('colors.custom.light-blue')}, ${theme('colors.custom.dark-blue')})`,
-				'gradient-purple-light-blue': `linear-gradient(to right, ${theme('colors.custom.purple')}, ${theme('colors.custom.light-blue')})`,
-			}),
+			// backgroundImage: theme => ({
+			// 	'gradient-dark-blue-light-pink': `linear-gradient(to right, ${theme('colors.custom.dark-blue')}, ${theme('colors.custom.light-pink')})`,
+			// 	'gradient-purple-green': `linear-gradient(to right, ${theme('colors.custom.purple')}, ${theme('colors.custom.green')})`,
+			// 	'gradient-light-blue-dark-blue': `linear-gradient(to right, ${theme('colors.custom.light-blue')}, ${theme('colors.custom.dark-blue')})`,
+			// 	'gradient-purple-light-blue': `linear-gradient(to right, ${theme('colors.custom.purple')}, ${theme('colors.custom.light-blue')})`,
+			// }),
 		},
 	},
 	plugins: [nextui()],

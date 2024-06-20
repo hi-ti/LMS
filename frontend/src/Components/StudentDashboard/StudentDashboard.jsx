@@ -11,7 +11,6 @@ const StudentDashboard = () => {
 	const fetchData = async () => {
 		try {
 			const res = await publicApi.post("api/student/myCourses", { token: token });
-			console.log(res);
 			setCoursesEnrolled(res.data);
 		} catch (err) {
 			console.log(err);
@@ -24,20 +23,19 @@ const StudentDashboard = () => {
 	}, []);
 
 	return (
-		<div className="mt-16 p-4">
-			<h1 className="text-5xl font-bold text-center mb-8">Student Dashboard</h1>
-
+		<div className="min-h-screen p-8 mt-8 bg-custom-dark flex flex-col items-center">
+			<h1 className="text-5xl font-bold text-center mb-8 text-white">Student Dashboard</h1>
 			<div className="flex flex-wrap gap-6 justify-center">
 				{coursesEnrolled !== "No courses" ? (
 					coursesEnrolled.map((course) => (
 						<div
 							key={course.cno._id}
-							className="bg-gray-200 py-4 px-6 w-64 rounded-xl shadow-lg flex flex-col justify-between"
+							className="bg-custom-light py-4 px-6 w-64 rounded-xl shadow-lg flex flex-col justify-between"
 						>
 							<div className="text-left">
-								<div className="text-2xl font-bold mb-2">{course.cno.cname}</div>
-								<div className="text-xl font-semibold mb-1">{course.cno.clevel}</div>
-								<div className="text-xl font-semibold mb-4">{course.cno.cbranch}</div>
+								<div className="text-2xl font-bold mb-2 text-white">{course.cno.cname}</div>
+								<div className="text-xl font-semibold mb-1 text-white">{course.cno.clevel}</div>
+								<div className="text-xl font-semibold mb-4 text-white">{course.cno.cbranch}</div>
 							</div>
 							<div className="flex flex-col gap-y-2">
 								<Link
@@ -56,7 +54,7 @@ const StudentDashboard = () => {
 						</div>
 					))
 				) : (
-					<div className="text-center text-xl">No Courses Found</div>
+					<div className="text-center text-xl text-white">No Courses Found</div>
 				)}
 			</div>
 		</div>

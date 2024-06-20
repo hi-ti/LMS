@@ -44,16 +44,16 @@ const AssignCourses = () => {
 	};
 
 	return (
-		<div className="min-h-screen mt-16 bg-gray-50 p-8">
-			<h1 className="text-4xl font-bold mb-8">Assign Courses</h1>
+		<div className="min-h-screen mt-16 bg-custom-dark p-8">
+			<h1 className="text-4xl font-bold text-custom-red mb-8">Assign Courses</h1>
 
-			<div className="space-y-6">
+			<div className="flex w-1/2 items-center space-x-6">
 				{courses.map((course) => (
-					<div key={course._id} className="bg-white p-6 rounded-lg shadow-md">
-						<h2 className="text-2xl font-semibold mb-4">{course.cname}</h2>
+					<div key={course._id} className="bg-custom-light p-6 rounded-lg shadow-md">
+						<h2 className="text-2xl font-semibold mb-4 text-custom-red">{course.cname}</h2>
 						<select
 							onChange={(event) => handleSelect(event, course)}
-							className="bg-gray-200 w-72 py-2 px-3 rounded-lg"
+							className="bg-custom-red text-gray-800 w-72 py-2 px-3 rounded-lg"
 						>
 							<option value={course.teacher ? course.teacherId : "null"}>
 								{course.teacher ? course.teacher : "Not assigned yet"}
