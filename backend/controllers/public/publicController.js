@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Courses = require("../../models/courses");
 
 const dashboard = async (req, res) => {
-	console.log("CALLED ME BITCHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	console.log("All courses");
 	try {
 		// Fetch all courses
 		const allCourses = await Courses.find({});
